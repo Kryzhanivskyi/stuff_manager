@@ -1,7 +1,6 @@
 from django.urls import path
-
-from apps.account.views import index
+from apps.account.views import profile
 
 urlpatterns = [
-    path("index/", index)
+    path('profile/<id>/', profile),
 ]
