@@ -5,3 +5,19 @@ from apps.account.models import User
 @admin.register(User)
 class HeroAdmin(admin.ModelAdmin):
     readonly_fields = ["username", "last_login", "date_joined", "password"]
+
+    list_display = ["id", "username", "age", "email"]
+    list_filter = ["date_joined", "last_login", "age"]
+    list_per_page = 10
+    serch_fields = ["email", "first_name"]
+
+    def has_delete_permission(self, request, obj=None):
+        if obj is not None:
+            return not obj.is_superuser
+        return False
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        if not request.user.is_superuser:
+            return qs.exclude(is_superuser=True)
+        return qs
