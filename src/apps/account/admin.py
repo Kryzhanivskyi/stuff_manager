@@ -4,12 +4,11 @@ from apps.account.models import User
 
 @admin.register(User)
 class HeroAdmin(admin.ModelAdmin):
-    readonly_fields = ["username", "last_login", "date_joined", "password"]
-
+    readonly_fields = ["username", "last_login", "date_joined", "password", "phone_number"]
     list_display = ["id", "username", "age", "email"]
     list_filter = ["date_joined", "last_login", "age"]
     list_per_page = 10
-    serch_fields = ["email", "first_name"]
+    search_fields = ["email", "first_name", "phone_number"]
 
     def has_delete_permission(self, request, obj=None):
         if obj is not None:

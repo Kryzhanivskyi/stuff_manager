@@ -35,4 +35,5 @@ class Command(BaseCommand):
                 email=generate_random_emails(),
                 age=random.randint(18, 60),
                 password=get_one_random_name(letters),
+                phone_number=
             )
