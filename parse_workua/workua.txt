@@ -1,14 +1,14 @@
-id:2580282;href:/ru/jobs/2580282/;title:Продавець (ТРЦ Promenada Park), вакансия от 29 декабря 2018;city:Киев;company_name:Работа в Ostin;type_of_employment:Велика Окружна дорога, 4; 12 км от центраПоказать на карте
-id:3340503;href:/ru/jobs/3340503/;title:Менеджер з персоналу, вакансия от 29 декабря 2018;city:Винница;company_name:Работа в Новий Імпульс;type_of_employment:полная занятость
-id:3407310;href:/ru/jobs/3407310/;title:Монтажник, вакансия от 29 декабря 2018;city:Мария;company_name:Работа в Интегрированные Логистические Системы;type_of_employment:0503161914
-id:3355621;href:/ru/jobs/3355621/;title:Middle Back-end developer (Node.js), вакансия от 29 декабря 2018;city:Житомир;company_name:Работа в ISM Ukraine;type_of_employment:полная занятость
-id:465908;href:/ru/jobs/465908/;title:Project manager, scrum master, product owner, вакансия от 29 декабря 2018;city:Дмитрий Антонюк;company_name:Работа в ISM Ukraine;type_of_employment:(+380412) 44-54-03; (+38067) 758-29-91
-id:3372884;href:/ru/jobs/3372884/;title:Менеджер телефонных продаж, вакансия от 29 декабря 2018;city:Киев;company_name:Работа в Мега текнолоджи;type_of_employment:проспект Перемоги, 90; 8,7 км от центраПоказать на карте
-id:2493017;href:/ru/jobs/2493017/;title:Менеджер по продажам (активные продажи), вакансия от 28 декабря 2018;city:Харьков;company_name:Работа в Макси Маркетинг;type_of_employment:полная занятость
-id:2975997;href:/ru/jobs/2975997/;title:Кассир в детский универмаг, вакансия от 26 декабря 2018;city:Киев;company_name:Работа в Паритет-Смік, ТОВ;type_of_employment:полная занятость
 id:2269925;href:/ru/jobs/2269925/;title:Продавец (ст. м. Осокорки), вакансия от 26 декабря 2018;city:Киев;company_name:Работа в Сільпо, мережа супермаркетів;type_of_employment:полная занятость, неполная занятость
 id:2959588;href:/ru/jobs/2959588/;title:Водитель такси Uber на авто компании, вакансия от 19 декабря 2018;city:Василий Викторович;company_name:Работа в Луканов И.А., ФЛП;type_of_employment:0501007038
+id:2822986;href:/ru/jobs/2822986/;title:Повар-универсал, вакансия от 6 января 2019;city:Киев;company_name:Работа в ЕМ АРС-Груп, ТОВ;type_of_employment:полная занятость
+id:3410959;href:/ru/jobs/3410959/;title:Менеджер по поиску товаров, вакансия от 6 января 2019;city:Назарий;company_name:Работа в Мельник Н.В., ФЛП;type_of_employment:0997715164
+id:2971455;href:/ru/jobs/2971455/;title:Переводчик английского языка в брачное агентство, вакансия от 6 января 2019;city:Анна;company_name:Работа в Celebrity;type_of_employment:(093) 454-52-69
+id:2759167;href:/ru/jobs/2759167/;title:Продавець-консультант (ТЦ "Глобус"), вакансия от 6 января 2019;city:Киев;company_name:Работа в A-shop;type_of_employment:Майдан Незалежності; 0,1 км от центраПоказать на карте
+id:3243126;href:/ru/jobs/3243126/;title:Адміністратор офісу, вакансия от 5 января 2019;city:Киев;company_name:Работа в Нова, компания;type_of_employment:полная занятость
+id:2301796;href:/ru/jobs/2301796/;title:Переводчик английского языка в брачное агентство, вакансия от 5 января 2019;city:Киев;company_name:Работа в El Sharm;type_of_employment:полная занятость, удаленная работа, готовы взять студента
 id:3336910;href:/ru/jobs/3336910/;title:Бетонщик, арматурщик, вакансия от 5 января 2019;city:Виталий;company_name:Работа в ХЛК-Технологии, ООО;type_of_employment:0676227545
 id:2089563;href:/ru/jobs/2089563/;title:Администратор, вакансия от 5 января 2019;city:Светлана;company_name:Работа в VAHome, магазин;type_of_employment:093-874-91-91; 050-874-91-91; 067-874-91-91
 id:3372845;href:/ru/jobs/3372845/;title:General, Family Physician to German Medical Center in Kabul (Afghanistan), вакансия от 5 января 2019;city:Другие страны;company_name:Работа в DK-German Medical Diagnostic Center;type_of_employment:полная занятость
 id:3149506;href:/ru/jobs/3149506/;title:Бухгалтер, вакансия от 5 января 2019;city:Днепр;company_name:Работа в Клевер, ООО;type_of_employment:полная занятость
+id:3237292;href:/ru/jobs/3237292/;title:Продавец-консультант (ТРЦ Skymall), вакансия от 5 января 2019;city:Алексей Иваницкий;company_name:Работа в TheWatch;type_of_employment:0681192464
+id:2371471;href:/ru/jobs/2371471/;title:Администратор, куратор творческой школы, вакансия от 5 января 2019;city:Лана Толочина;company_name:Работа в Артхаус (Киев);type_of_employment:098-633-70-07
