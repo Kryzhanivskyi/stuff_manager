@@ -37,7 +37,7 @@ class RequestDayOffForm(forms.ModelForm):
     class Meta:
         model = RequestDayOffs
         fields = [
-            'type', 'from_date', 'to_date'
+            'type', 'from_date', 'to_date',
         ]
 
     def __init__(self, *args, **kwargs):
@@ -65,7 +65,14 @@ class RequestDayOffForm(forms.ModelForm):
             if maximum >= 20:
                 self.add_error('type', "vacation shouldn't be less then 20 working days")
             if maximum > self.user.vacations_days:
-                self.add_error('type', "you have not enough days to get this vacation ")
+                self.add_error('type', "you have not enough days to get this vacation")
+
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+        instance.user = self.user
+        if commit:
+            instance.save()
+        return instance
 
 
 

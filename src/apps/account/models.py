@@ -13,9 +13,9 @@ class User(AbstractUser):
     vacations_days = models.PositiveSmallIntegerField(null=False, blank=False, default=0)
     sickness_days = models.PositiveSmallIntegerField(null=False, blank=False, default=0)
 
-    def save(self, *args, **kwargs):
-        self.username = self.email
-        super().save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #     self.username = self.email
+    #     super().save(*args, **kwargs)
 
 
 class City(models.Model):

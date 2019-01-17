@@ -88,6 +88,7 @@ def tos(request):
 #     context = {"form": form_request}
 #     return render(request, "form-request/form-request.html", context=context)
 
+@login_required
 def create_request(request):
     user = request.user
     base_form = RequestDayOffForm
