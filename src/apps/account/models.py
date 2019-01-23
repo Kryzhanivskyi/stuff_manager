@@ -13,9 +13,13 @@ class User(AbstractUser):
     vacations_days = models.PositiveSmallIntegerField(null=False, blank=False, default=0)
     sickness_days = models.PositiveSmallIntegerField(null=False, blank=False, default=0)
 
-    # def save(self, *args, **kwargs):
-    #     self.username = self.email
-    #     super().save(*args, **kwargs)
+    @property
+    def is_hr(self):
+        return self.groups.filter(name='HR').exists()
+
+    def save(self, *args, **kwargs):
+        self.username = self.email
+        super().save(*args, **kwargs)
 
 
 class City(models.Model):
@@ -27,6 +31,7 @@ class City(models.Model):
     class Meta:
         verbose_name_plural = "Cities"
 
+
 class ContactUs(models.Model):
     email = models.EmailField('email address', blank=True)
     title = models.CharField(max_length=64)
@@ -37,8 +42,6 @@ class ContactUs(models.Model):
 
     class Meta:
         verbose_name_plural = "Contact us"
-
-
 
 
 class RequestDayOffs(models.Model):
@@ -57,20 +60,10 @@ class RequestDayOffs(models.Model):
     )
     reason = models.CharField(max_length=256, blank=True, null=True,
                               default=None)
-    # REASON_CHOICES = (
-    #     ('Vacation', 'Vacation'),
-    #     ('Disease', 'Disease'),
-    #     ('At own expense', 'At own expense'),
-    # )
-    # LOCATOR_YES_NO_CHOICES = ((None, ''), (True, 'Confirmed'), (False, 'Rejected'))
-    # confirmed = models.NullBooleanField(choices=LOCATOR_YES_NO_CHOICES,
-    #                             max_length=3,
-    #                             blank=True, null=True, default=None,)
-    # reason = models.CharField(max_length=256, choices=REASON_CHOICES)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='dayoffs')
-
-    def __str__(self):
-        return self.reason
 
     class Meta:
         verbose_name_plural = "Request day offs"
+
+    def __str__(self):
+        return f'status: {self.get_status_display()}, user: {self.user_id}'

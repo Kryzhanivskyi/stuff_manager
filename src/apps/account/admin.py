@@ -1,6 +1,6 @@
 from django.contrib import admin
 from apps.account.models import User, City, ContactUs, RequestDayOffs
-from apps.account.forms import UserAdminForm
+from apps.account.forms import UserAdminForm, RequestDayOffAdminForm, RequestDayOffAdminAddForm
 from apps import model_choices as mch
 
 
@@ -24,9 +24,9 @@ class HeroAdmin(admin.ModelAdmin):
         return []
 
     def get_form(self, request, obj=None, **kwargs):
-        if obj is None:
+        if obj is None: # create user "+add"
             return UserAdminForm
-        else:
+        else: # change existing user
             return super().get_form(request, obj, **kwargs)
 
     def has_delete_permission(self, request, obj=None):
@@ -48,16 +48,30 @@ class ContactUsAdmin(admin.ModelAdmin):
 
 @admin.register(RequestDayOffs)
 class RequestDayOffsAdmin(admin.ModelAdmin):
-    readonly_fields = []
-    list_display = ["user", "from_date", "to_date", "reason", "type"]
-    search_fields = ["user", "from_date", "to_date", "reason", "type"]
-    list_filter = ["reason", 'type']
+    list_filter = ('status', 'type')
+    readonly_fields = ()
+    # TODO add form
+    # TODO subtract dayoffs or vacations on Form Approve
 
     def get_readonly_fields(self, request, obj=None):
+        readonly_fields = super().get_readonly_fields(self, request)
         if obj is not None:
-            return ['user']
-        if obj.status != mch.STATUS_PENDING:
-            return ["status"]
+            readonly_fields += ('user', )
+            # if request.user.is_hr:  # check if request user in group
+            # if obj.status != mch.STATUS_PENDING and not request.user.is_superuser:  # allow superuser to change status field
+            if obj.status != mch.STATUS_PENDING:
+                readonly_fields += ('status', )
+                # readonly_fields = readonly_fields + ('status', )
+        return readonly_fields
+
+    def get_form(self, request, obj=None, **kwargs):
+        if obj is None:
+            return RequestDayOffAdminAddForm
+        else:
+            return RequestDayOffAdminForm
+
+
+
 
 
 

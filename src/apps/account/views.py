@@ -6,21 +6,60 @@ from django.urls import reverse
 from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
+from apps.account.tasks import send_email_async
+from django.core.cache import cache
+from django.views.decorators.cache import cache_page
 
 
 
 def index(request):
+    # task_number_one.delay()
+    # task_number_one()
+    key = 'user_cache'
+    if key in cache:  # check if users exist in cache
+        users = cache.get(key)  # get users from cache
+        print('11'*100)
+    else:
+        users = list(User.objects.all()[:100])  # get users from db
+        cache.set(key, users, 15)  # set cache with key='user_cache', write 100 users for 15 seconds
+        print('222'*100)
+    # cache.delete(key)  # to delete cache by key
+
+
+    # 1
+    send_email_async.delay(
+        'Subject here',
+        'Here is the message.',
+        user=request.user.id,
+        from_email='bobertestdjango@gmail.com',
+        recipient_list=['kryzhkot@gmail.com'],
+    )
+
+    # 2
+    # send_email_async.apply_async(
+    #     args=('Subject here', 'Here is the message.'),
+    #     kwargs={'from_email': 'from@example.com',
+    #             'recipient_list': ['to@example.com']},
+    #     countdown=60 * 45,  # 45 min
+        # countdown=10,
+     # )
+    # from datetime import datetime, timedelta
+    # tomorrow = datetime.now() + timedelta(days=1)
+    #
+    # send_email_async.apply_async(
+    #     args=('Subject here', 'Here is the message.'),
+    #     kwargs={'from_email': 'from@example.com',
+    #             'recipient_list': ['to@example.com']},
+    #     eta=tomorrow,
+    #  )
     return HttpResponse("Index")
 
 
-
-def email(request):
-    subject = 'Thank you for registering to our site'
-    message = ' it  means a world to us '
-    email_from = settings.EMAIL_HOST_USER
-    recipient_list = ['receiver@gmail.com']
-    send_mail(subject, message, email_from, recipient_list)
-    return redirect('redirect to a new page')
+@cache_page(10)
+def cache_test(request):
+    from time import sleep
+    sleep(10)
+    return HttpResponse('Cache Test')
 
 
 @login_required
@@ -65,10 +104,12 @@ def contact_us(request):
     return render(request, "account/contact-us.html", context=context)
 
 
+@cache_page(60 * 5)
 def faq(request):
     return render(request, "faq/faq.html")
 
 
+@cache_page(60 * 5)
 def tos(request):
     return render(request, "tos/tos.html")
 
