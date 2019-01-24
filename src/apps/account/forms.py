@@ -1,9 +1,10 @@
 #from django.forms import ModelForm
 from django import forms
 from django.db.models import Q
-from datetime import timedelta
+from datetime import timedelta, datetime
 from apps import model_choices as mch
 from apps.account.models import User, ContactUs, RequestDayOffs
+from apps.account.tasks import send_email_async
 
 
 class ProfileForm(forms.ModelForm):
@@ -43,7 +44,6 @@ class RequestDayOffForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
     def clean(self):
-        from pdb import set_trace
         cleaned_data = super().clean()
         if not self.errors:
             if cleaned_data['from_date'] > cleaned_data['to_date']:
@@ -105,6 +105,23 @@ class RequestDayOffAdminForm(forms.ModelForm):
                 date_from = date_from + timedelta(days=1)
         if cleaned_data['status'] == mch.STATUS_CONFIRMED:
             user.vacations_days -= days_counter
+            instance.created = datetime.now()
+            send_email_async.delay(
+                'Request Status',
+                'Your request has been confirmed. ' + cleaned_data['reason'],
+                user=user.id,
+                from_email='bobertestdjango@gmail.com',
+                recipient_list=[user.email],
+            )
+        elif cleaned_data['status'] == mch.STATUS_REJECTED:
+            instance.created = datetime.now()
+            send_email_async.delay(
+                'Request Status',
+                'Your request has been rejected. Sorry:) ' + cleaned_data['reason'],
+                user=user.id,
+                from_email='bobertestdjango@gmail.com',
+                recipient_list=[user.email],
+            )
         user.save()
         if commit:
             instance.save()

@@ -170,5 +170,5 @@ CACHES = {
 }
 
 
-# from pdb import set_trace
-# __builtins__['st'] = set_trace  # st()
+from pdb import set_trace
+__builtins__['st'] = set_trace  # st()
