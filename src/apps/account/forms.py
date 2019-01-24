@@ -79,7 +79,7 @@ class RequestDayOffAdminForm(forms.ModelForm):
     class Meta:
         model = RequestDayOffs
         fields = [
-            'status', 'created', 'from_date', 'to_date', 'reason', 'type',
+            'status', 'created', 'status_changed', 'from_date', 'to_date', 'reason', 'type',
         ]
 
     def clean(self):
@@ -105,7 +105,7 @@ class RequestDayOffAdminForm(forms.ModelForm):
                 date_from = date_from + timedelta(days=1)
         if cleaned_data['status'] == mch.STATUS_CONFIRMED:
             user.vacations_days -= days_counter
-            instance.created = datetime.now()
+            instance.status_changed = datetime.now()
             send_email_async.delay(
                 'Request Status',
                 'Your request has been confirmed. ' + cleaned_data['reason'],
@@ -114,7 +114,7 @@ class RequestDayOffAdminForm(forms.ModelForm):
                 recipient_list=[user.email],
             )
         elif cleaned_data['status'] == mch.STATUS_REJECTED:
-            instance.created = datetime.now()
+            instance.status_changed = datetime.now()
             send_email_async.delay(
                 'Request Status',
                 'Your request has been rejected. Sorry:) ' + cleaned_data['reason'],

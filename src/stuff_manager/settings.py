@@ -154,8 +154,12 @@ CELERY_TASK_SERIALIZER = 'json'
 CELERY_BEAT_SCHEDULE = {'increment_dayoffs': {
         'task': 'apps.account.tasks.increment_dayoffs',
         'schedule': crontab(month_of_year='*/1'),
-        'args': (),
-    }}
+        'args': ()},
+        'request_date_check': {
+        'task': 'apps.account.tasks.request_date_check',
+        'schedule': crontab(day_of_week='*/1'),
+        'args': ()}
+}
 
 
 CACHES = {

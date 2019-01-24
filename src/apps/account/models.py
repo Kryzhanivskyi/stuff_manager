@@ -51,6 +51,7 @@ class RequestDayOffs(models.Model):
         default=mch.STATUS_PENDING,
     )
     created = models.DateTimeField(default=datetime.now)
+    status_changed = models.DateTimeField(default=datetime.now)
     from_date = models.DateTimeField(null=False, blank=False)
     to_date = models.DateTimeField(null=False, blank=False)
     type = models.PositiveSmallIntegerField(
