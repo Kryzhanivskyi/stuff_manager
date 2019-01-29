@@ -1,3 +1,5 @@
 env/
 __pyсache__/
 *.рус
+src/static/
+src/stuff_manager/settings_local*

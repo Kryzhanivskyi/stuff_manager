@@ -52,7 +52,7 @@ def index(request):
     #             'recipient_list': ['to@example.com']},
     #     eta=tomorrow,
     #  )
-    return HttpResponse("Index")
+    return render(request, 'index.html')
 
 
 @cache_page(10)

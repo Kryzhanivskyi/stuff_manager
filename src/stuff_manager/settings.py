@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'o%dp^ep93xvgul4&x9k*kls)$wx)!)p7rje^64nz&5fkm)yx!p'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 
@@ -69,6 +69,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'apps.context_processors.global_context',
             ],
         },
     },
@@ -82,15 +83,10 @@ WSGI_APPLICATION = 'stuff_manager.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'myproject',
-        'USER': 'myprojectuser',
-        'PASSWORD': 'password',
-        'HOST': 'localhost',
-        'PORT': '',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -129,6 +125,8 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+
 
 # custom settings
 AUTH_USER_MODEL = 'account.User'
@@ -154,11 +152,13 @@ CELERY_TASK_SERIALIZER = 'json'
 CELERY_BEAT_SCHEDULE = {'increment_dayoffs': {
         'task': 'apps.account.tasks.increment_dayoffs',
         'schedule': crontab(month_of_year='*/1'),
-        'args': ()},
+        'args': []
+        },
         'request_date_check': {
         'task': 'apps.account.tasks.request_date_check',
         'schedule': crontab(day_of_week='*/1'),
-        'args': ()}
+        'args': []
+        }
 }
 
 
@@ -174,5 +174,13 @@ CACHES = {
 }
 
 
+
 from pdb import set_trace
 __builtins__['st'] = set_trace  # st()
+
+
+try:
+    from stuff_manager.settings_local import *
+except ImportError:
+    print('No local settings loaded')
+

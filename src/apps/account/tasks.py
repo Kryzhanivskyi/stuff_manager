@@ -2,6 +2,7 @@ from celery import shared_task
 from django.core.mail import send_mail
 from datetime import timedelta, datetime
 
+from apps import model_choices as mch
 
 @shared_task
 def task_number_one():
@@ -42,8 +43,7 @@ def send_email_async(*args, **kwargs):
 @shared_task
 def request_date_check():
     from apps.account.models import RequestDayOffs
-    from apps import model_choices as mch
-    for request in RequestDayOffs.objects.all().iterator():
-        if (request.created + timedelta(days=30)) < datetime.now() and request.status == mch.STATUS_PENDING:
+    for request in RequestDayOffs.objects.filter(status=mch.STATUS_PENDING).iterator():
+        if (request.created + timedelta(days=30)) < datetime.now():
             request.status = mch.STATUS_PASSED
             request.save()
