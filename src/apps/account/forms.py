@@ -36,7 +36,7 @@ class RequestDayOffForm(forms.ModelForm):
     class Meta:
         model = RequestDayOffs
         fields = [
-            'type', 'from_date', 'to_date',
+            'type', 'from_date', 'to_date', 'status_changed',
         ]
 
     def __init__(self, *args, **kwargs):
@@ -46,9 +46,10 @@ class RequestDayOffForm(forms.ModelForm):
     def clean(self):
         cleaned_data = super().clean()
         if not self.errors:
+            #TODO спросить Диму, какого хуя дата должна юыть перед ифом а не после
+            data = cleaned_data['to_date'] - cleaned_data['from_date']
             if cleaned_data['from_date'] > cleaned_data['to_date']:
                 self.add_error('to_date', 'from_date cannot be greater then to_date')
-            data = cleaned_data['to_date'] - cleaned_data['from_date']
             if cleaned_data["type"] == mch.REQUEST_DAYOFF and data.days > 1:
                 self.add_error('to_date', 'dayoff should be not more then 1 day')
             date_from = cleaned_data['from_date']
@@ -61,7 +62,7 @@ class RequestDayOffForm(forms.ModelForm):
                     days_counter += 1
                     date_from = date_from + timedelta(days=1)
             if days_counter >= 20:
-                self.add_error('type', "vacation shouldn't be less then 20 working days")
+                self.add_error('to_date', "vacation shouldn't be less then 20 working days")
             if days_counter > self.user.vacations_days:
                 self.add_error('type', "you have not enough days to get this vacation")
             return cleaned_data
