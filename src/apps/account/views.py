@@ -55,6 +55,10 @@ def index(request):
     return render(request, 'index.html')
 
 
+def main(request):
+    return render(request, 'main/main.html')
+
+
 @cache_page(10)
 def cache_test(request):
     from time import sleep
